@@ -1,0 +1,29 @@
+{
+  "name": "claude-weixin-official",
+  "version": "1.0.0",
+  "description": "Claude ↔ 微信官方 iLink Bot API 桥接（腾讯 ClawBot / ilinkai.weixin.qq.com）",
+  "type": "module",
+  "bin": {
+    "claude-weixin": "./src/index.mjs"
+  },
+  "scripts": {
+    "start": "node src/index.mjs",
+    "login": "node src/index.mjs --login"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "keywords": [
+    "claude",
+    "wechat",
+    "weixin",
+    "ilink",
+    "clawbot"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "@anthropic-ai/claude-agent-sdk": "^0.2.81",
+    "dotenv": "^17.3.1",
+    "qrcode-terminal": "^0.12.0"
+  }
+}
