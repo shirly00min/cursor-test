@@ -58,6 +58,30 @@ npm start -- pair AB12CD
 
 批准后才处理该用户消息。关闭配对：`.env` 中设置 `REQUIRE_PAIRING=false`。
 
+管理员也可在微信发送：`/配对 AB12CD`
+
+## 安全能力
+
+详见 [docs/SECURITY.md](docs/SECURITY.md)。
+
+| 能力 | 配置 |
+|------|------|
+| 微信 ID 白名单 | `ALLOWED_WECHAT_IDS` |
+| 仅项目目录自动执行 | `PROJECT_ROOT` |
+| 越权操作微信确认 | `ADMIN_WECHAT_IDS` + `/允许` `/拒绝` |
+| 前缀管理指令 | `COMMAND_PREFIX`（默认 `/`） |
+| 速率限制 / 禁网 | `RATE_LIMIT_PER_MINUTE` / `ALLOW_NETWORK` |
+
+推荐最小配置：
+
+```env
+PROJECT_ROOT=/your/repo
+ALLOWED_WECHAT_IDS=你的ID@im.wechat
+ADMIN_WECHAT_IDS=你的ID@im.wechat
+REQUIRE_PAIRING=true
+ALLOW_NETWORK=false
+```
+
 ## 环境变量
 
 见 [.env.example](.env.example)。
