@@ -1,0 +1,12 @@
+# 生产配置：从 skills/wechat-supplier-collab/references/suppliers-registry.example.yaml 复制并修改
+# 本文件为占位，请按实际供应商群名填写
+
+version: "1.0"
+
+defaults:
+  listenMode: at_me_only
+  approvalRequired: true
+  allowAutoOutbound: false
+  language: zh-CN
+
+suppliers: []

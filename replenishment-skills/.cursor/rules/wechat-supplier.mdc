@@ -1,0 +1,26 @@
+---
+description: 启用或配置供应商微信协同时，在本机 replenishment-skills 仓库执行标准命令
+globs:
+  - "**/replenishment-skills/**"
+  - "**/wechaty-bridge/**"
+  - "**/wechat-supplier-collab/**"
+alwaysApply: false
+---
+
+# 供应商微信协同（本机 Cursor）
+
+用户要「启用供应商微信 / Wechaty / 供应商群 Skill」时：
+
+1. 工作区应打开 `replenishment-skills` 仓库根目录（非子文件夹）。
+2. 在**集成终端**执行（会改本机文件）：
+   ```bash
+   npm install
+   npm run wechat:enable
+   ```
+3. `wechat:enable` 会：必要时跑交互向导 → 写 `.env` 与群配置 → 可选合并 `~/.openclaw/openclaw.json` → 检查 `openclaw skills list`。
+4. 启动 bridge：`npm run wechat:bridge`（或任务「供应商协同：启动 wechaty-bridge」）。
+5. 不要声称能代替用户扫码登录微信；bridge 必须在用户本机或 VPS 运行。
+
+Cursor 任务菜单位置：**终端 → 运行任务…** → 选「供应商协同：一键启用（推荐）」。
+
+Skill 目录：`skills/wechat-supplier-collab/SKILL.md`

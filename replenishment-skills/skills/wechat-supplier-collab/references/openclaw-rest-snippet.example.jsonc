@@ -1,0 +1,52 @@
+{
+  // 片段：合并进 openclaw.json，字段名以你安装的 openclaw-rest-channel 版本为准
+  "plugins": {
+    "entries": {
+      "openclaw-rest-channel": {
+        "enabled": true
+      }
+    }
+  },
+  "channels": {
+    "rest": {
+      "enabled": true,
+      "accounts": {
+        "default": {
+          "inboundPath": "/rest/inbound",
+          "inboundApiKey": "REPLACE_INBOUND_API_KEY",
+          "webhookUrl": "http://127.0.0.1:8787/openclaw/outbound",
+          "webhookSecret": "REPLACE_WEBHOOK_SECRET",
+          "dmPolicy": "allowlist",
+          "allowFrom": [
+            "wxid_procurement_001",
+            "supplier:group:XX供应商-对账群"
+          ],
+          "groups": {
+            "*": {
+              "requireMention": true,
+              "historyLimit": 50
+            }
+          }
+        }
+      }
+    }
+  },
+  "skills": {
+    "load": {
+      "extraDirs": [
+        "/Users/liuqiang1/AIproject/replenishment-skills/skills"
+      ]
+    },
+    "entries": {
+      "wechat-supplier-collab": {
+        "enabled": true
+      }
+    }
+  },
+  "agents": {
+    "defaults": {
+      "skills": ["wechat-supplier-collab"],
+      "systemPromptAppend": "采控供应商协同场景：遵守 wechat-supplier-collab Skill 的 G1-G5 门控。"
+    }
+  }
+}
