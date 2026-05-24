@@ -32,6 +32,11 @@
     }
   },
   "skills": {
+    "load": {
+      "extraDirs": [
+        "/Users/liuqiang1/AIproject/replenishment-skills/skills"
+      ]
+    },
     "entries": {
       "wechat-supplier-collab": {
         "enabled": true

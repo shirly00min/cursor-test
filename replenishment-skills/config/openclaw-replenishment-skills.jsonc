@@ -1,0 +1,22 @@
+{
+  // 合并进 ~/.openclaw/openclaw.json
+  // Mac 路径请按本机修改
+  "skills": {
+    "load": {
+      "extraDirs": [
+        "/Users/liuqiang1/AIproject/replenishment-skills/skills"
+      ]
+    },
+    "entries": {
+      "wechat-supplier-collab": {
+        "enabled": true
+      }
+    }
+  },
+  "agents": {
+    "defaults": {
+      "skills": ["wechat-supplier-collab"],
+      "systemPromptAppend": "采控场景：遵守 replenishment-skills 中 wechat-supplier-collab 的对外发送确认门控（G1-G5）。"
+    }
+  }
+}

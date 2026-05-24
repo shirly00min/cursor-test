@@ -4,16 +4,12 @@ description: |
   采控-供应商微信群协同（Wechaty + openclaw-rest-channel）。
   汇总群消息、提取待办与跟进、生成对内日报/对外回复草稿；默认仅 @ 触发、对外发送须人工确认。
   触发词：供应商群、供应商协同、微信待办、群消息汇总、代发供应商、供应商日报、POC-GROUP。
-metadata:
-  openclaw:
-    requires:
-      channels: ["rest"]
-      bins: []
-    primaryEnv: WECHAT_SUPPLIER_SKILL_HOME
+metadata: {"openclaw":{"requires":{"channels":["rest"],"bins":[]},"primaryEnv":"WECHAT_SUPPLIER_SKILL_HOME","parentRepo":"replenishment-skills"}}
 ---
 
 # 采控 · 供应商微信协同 Skill（Wechaty 版）
 
+> **仓库路径**：`replenishment-skills/skills/wechat-supplier-collab/`（本机示例：`/Users/liuqiang1/AIproject/replenishment-skills/skills/wechat-supplier-collab`）  
 > **定位**：在 OpenClaw 上运行的 **业务能力 Skill**，不负责登录微信。  
 > **前提**：`wechaty-bridge` → `POST /rest/inbound`（`openclaw-rest-channel`）→ 本 Skill 指导 Agent 行为。  
 > **原则**：供应商群 **默认只听 @**；**对外发送必须人工确认**；**Cron 默认只对内**。
@@ -53,15 +49,45 @@ flowchart LR
 
 ## 2. 安装与启用（OpenClaw）
 
-### 2.1 将 Skill 放入工作区
+### 2.1 在 replenishment-skills 仓库内（推荐）
 
-```bash
-# 在 OpenClaw workspace 下
-cp -r skills/wechat-supplier-collab ~/.openclaw/workspace/skills/
-# 或 monorepo：AIproject/skills/wechat-supplier-collab
+本 Skill 已作为 **replenishment-skills 技能包** 的一员，无需再单独拷贝目录。
+
+**本机仓库根目录**（示例）：
+
+```text
+/Users/liuqiang1/AIproject/replenishment-skills/
+  skills/
+    wechat-supplier-collab/    ← 本 Skill（{baseDir}）
+      SKILL.md
+      references/
 ```
 
-在 `openclaw.json`（或等价配置）中确保 Skill 目录被扫描，并将本 Skill 加入允许列表（按你方 OpenClaw 版本配置项为准，常见为 `skills.entries` / `agents.defaults.skills`）。
+**方式 A — `skills.load.extraDirs`（推荐，与补货 Skill 共存）**
+
+在 `~/.openclaw/openclaw.json` 合并 `config/openclaw-replenishment-skills.jsonc`（见仓库根目录），或手动添加：
+
+```jsonc
+"skills": {
+  "load": {
+    "extraDirs": [
+      "/Users/liuqiang1/AIproject/replenishment-skills/skills"
+    ]
+  },
+  "entries": {
+    "wechat-supplier-collab": { "enabled": true }
+  }
+}
+```
+
+**方式 B — 链到 OpenClaw workspace**
+
+```bash
+ln -sf /Users/liuqiang1/AIproject/replenishment-skills/skills/wechat-supplier-collab \
+  ~/.openclaw/workspace/skills/wechat-supplier-collab
+```
+
+安装后执行：`openclaw skills list`（或重启 Gateway），应能看到 `wechat-supplier-collab`。
 
 ### 2.2 REST Channel（必配）
 
@@ -82,7 +108,8 @@ cp references/suppliers-registry.example.yaml suppliers-registry.yaml
 环境变量（可选）：
 
 ```bash
-export WECHAT_SUPPLIER_SKILL_HOME="$HOME/.openclaw/workspace/skills/wechat-supplier-collab"
+export WECHAT_SUPPLIER_SKILL_HOME="/Users/liuqiang1/AIproject/replenishment-skills/skills/wechat-supplier-collab"
+export REPLENISHMENT_SKILLS_HOME="/Users/liuqiang1/AIproject/replenishment-skills"
 ```
 
 ---
@@ -351,10 +378,17 @@ inboundMessageId: "uuid"        # 去重
 
 ---
 
-## 11. 扩展（可选对接）
+## 11. 与同仓库补货 Skill 协作
 
-- 与 `replenishment-skills`：待办 `type` 增加 `category: replenishment` 时转发补货逻辑
-- 与 Notion/飞书：解析 `SUPPLIER_TODOS` JSON 由独立脚本入库（本 Skill 不强制）
+| 场景 | 行为 |
+|------|------|
+| `suppliers-registry.yaml` 中 `category: replenishment` | `extract-todos` 的 JSON 增加 `"category": "replenishment"` |
+| 待办含补货/缺货/到货/排期 | 摘要中标注 **【补货】**，并提示可交由同仓库补货类 Skill 继续算量/下单建议 |
+| 非补货类供应商群 | 仅走本 Skill 通用协同逻辑 |
+
+**不自动跨界**：未经采控确认，不向供应商群发送补货结论（仍遵守 G1–G2）。
+
+- 与 Notion/飞书：解析 `SUPPLIER_TODOS` JSON 由 `replenishment-skills/scripts/` 下脚本入库（可选）
 
 ---
 
