@@ -1,0 +1,40 @@
+# 复制为 suppliers-registry.yaml，由 wechaty-bridge 与 Agent 只读加载
+# 群名 roomTopic 必须与微信群名称完全一致（含标点、空格）
+
+version: "1.0"
+
+defaults:
+  listenMode: at_me_only      # at_me_only | archive_only
+  approvalRequired: true
+  allowAutoOutbound: false
+  language: zh-CN
+
+suppliers:
+  - supplierId: SUP-001
+    supplierName: XX有限公司
+    roomTopic: "XX供应商-对账群"
+    category: reconciliation
+    ownerProcurement: "小刘"
+    tags: [对账, 月结]
+    listenMode: at_me_only
+
+  - supplierId: SUP-002
+    supplierName: YY供应链
+    roomTopic: "YY-补货沟通群"
+    category: replenishment
+    ownerProcurement: "小王"
+    tags: [补货, 紧急]
+    listenMode: archive_only   # 只归档不自动回群
+
+  - supplierId: SUP-003
+    supplierName: ZZ工厂
+    roomTopic: "ZZ工厂-质检异常"
+    category: quality
+    ownerProcurement: "小张"
+    listenMode: at_me_only
+    notes: "试点群，POC 期间仅工作时间监听"
+
+# 内部投递（Cron 日报目标，非微信群）
+internal:
+  procurementDigestConversationId: internal:procurement
+  # 若需抄送 ClawBot，由 bridge 或第二 channel 实现，不在本表
