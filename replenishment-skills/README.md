@@ -2,11 +2,12 @@
 
 采控 / 补货相关 **OpenClaw Skill 技能包**。每个子目录为独立 Skill（含 `SKILL.md`）。
 
-## 技能列表
+## 组件
 
-| Skill | 目录 | 说明 |
-|-------|------|------|
-| **wechat-supplier-collab** | `skills/wechat-supplier-collab/` | 供应商微信群协同（Wechaty + REST channel） |
+| 组件 | 目录 | 说明 |
+|------|------|------|
+| **wechat-supplier-collab** | `skills/wechat-supplier-collab/` | OpenClaw Skill（业务规则、待办、确认发群） |
+| **wechaty-bridge** | `wechaty-bridge/` | Wechaty 桥（微信 ↔ REST 入站/出站） |
 
 ## 本机路径（示例）
 
