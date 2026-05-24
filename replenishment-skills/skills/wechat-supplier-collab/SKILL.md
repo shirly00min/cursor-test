@@ -89,6 +89,23 @@ ln -sf /Users/liuqiang1/AIproject/replenishment-skills/skills/wechat-supplier-co
 
 安装后执行：`openclaw skills list`（或重启 Gateway），应能看到 `wechat-supplier-collab`。
 
+### 2.1.1 交互式初始化（推荐，首次启用）
+
+在 **replenishment-skills 仓库根目录** 运行（类似 Claude Code 的分步问答）：
+
+```bash
+cd /Users/liuqiang1/AIproject/replenishment-skills
+npm install
+npm run setup:wechat-supplier
+```
+
+向导会引导：是否启用、OpenClaw 连接、逐个添加 **微信群名** 与 **处理方式**（@ 触发 / 静默归档）、采控微信号、自动化选项，并生成：
+
+- `wechaty-bridge/.env`
+- `wechaty-bridge/config/suppliers-registry.yaml`
+- `wechaty-bridge/config/feature.manifest.json`
+- `config/openclaw-wechat-supplier.generated.jsonc`
+
 ### 2.2 REST Channel（必配）
 
 参考 `references/openclaw-rest-snippet.example.jsonc`。要点：

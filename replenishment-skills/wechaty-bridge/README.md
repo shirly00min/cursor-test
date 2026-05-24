@@ -21,11 +21,20 @@ replenishment-skills/
 
 ## 快速开始
 
-```bash
-cd /Users/liuqiang1/AIproject/replenishment-skills/wechaty-bridge
-cp .env.example .env
-# 编辑 .env：OPENCLAW_INBOUND_API_KEY、OPENCLAW_WEBHOOK_SECRET、注册表路径
+**推荐**：在仓库根目录跑交互式向导（自动写 `.env` 与群配置）
 
+```bash
+cd /Users/liuqiang1/AIproject/replenishment-skills
+npm install
+npm run setup:wechat-supplier
+cd wechaty-bridge && npm install && npm start
+```
+
+手动配置：
+
+```bash
+cd wechaty-bridge
+cp .env.example .env
 npm install
 npm start
 ```

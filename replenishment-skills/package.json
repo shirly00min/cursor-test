@@ -1,0 +1,18 @@
+{
+  "name": "replenishment-skills",
+  "version": "1.0.0",
+  "private": true,
+  "description": "OpenClaw skills pack · replenishment & supplier WeChat collab",
+  "type": "module",
+  "scripts": {
+    "setup:wechat-supplier": "node scripts/setup-wechat-supplier.mjs",
+    "wechat:setup": "node scripts/setup-wechat-supplier.mjs"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "@inquirer/prompts": "^7.5.2",
+    "yaml": "^2.7.0"
+  }
+}

@@ -1,0 +1,4 @@
+node_modules/
+config/openclaw-wechat-supplier.generated.jsonc
+wechaty-bridge/.env
+wechaty-bridge/config/feature.manifest.json
