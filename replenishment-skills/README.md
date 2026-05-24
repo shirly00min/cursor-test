@@ -15,15 +15,19 @@
 /Users/liuqiang1/AIproject/replenishment-skills/
 ```
 
-## 首次启用 · 交互式配置（推荐）
+## 首次启用（本机 Cursor 推荐）
 
-在仓库根目录执行（分步问答，配置微信群与处理策略）：
+**一条命令做到 Skill 可用**（缺配置会自动进入交互向导）：
 
 ```bash
 cd /Users/liuqiang1/AIproject/replenishment-skills
 npm install
-npm run setup:wechat-supplier
+npm run wechat:enable
 ```
+
+或在 Cursor：**终端 → 运行任务… →「供应商协同：一键启用（推荐）」**。
+
+仅重新配群 / 密钥：`npm run wechat:setup` · 启动 bridge：`npm run wechat:bridge` · 检查：`npm run wechat:verify`
 
 ## OpenClaw 启用
 

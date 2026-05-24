@@ -6,7 +6,11 @@
   "type": "module",
   "scripts": {
     "setup:wechat-supplier": "node scripts/setup-wechat-supplier.mjs",
-    "wechat:setup": "node scripts/setup-wechat-supplier.mjs"
+    "wechat:setup": "node scripts/setup-wechat-supplier.mjs",
+    "wechat:enable": "node scripts/enable-wechat-supplier.mjs",
+    "wechat:enable:start": "node scripts/enable-wechat-supplier.mjs --start-bridge",
+    "wechat:bridge": "npm --prefix wechaty-bridge start",
+    "wechat:verify": "node scripts/verify-wechat-supplier.mjs"
   },
   "engines": {
     "node": ">=18"
